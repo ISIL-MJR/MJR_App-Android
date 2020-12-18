@@ -1,0 +1,3 @@
+rootProject.name = "mjr-api"
+include 'application'
+include 'data'

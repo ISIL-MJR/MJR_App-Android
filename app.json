@@ -1,0 +1,8 @@
+{
+  "name": "MJR API",
+  "description": "The API for MJR",
+  "image": "heroku/java",
+  "addons": [
+    "heroku-postgresql"
+  ]
+}

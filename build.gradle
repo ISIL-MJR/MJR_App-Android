@@ -1,0 +1,57 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url("https://plugins.gradle.org/m2/") }
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+    }
+}
+
+apply plugin: 'kotlin'
+
+group 'pe.isil.mjr'
+version '0.1.0'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+subprojects {
+    apply(plugin: 'org.jetbrains.kotlin.jvm')
+    apply(plugin: 'org.jetbrains.kotlin.kapt')
+
+    sourceCompatibility = "11"
+    targetCompatibility = "11"
+
+    sourceSets {
+        main.kotlin.srcDirs = main.java.srcDirs = ['src']
+        test.kotlin.srcDirs = test.java.srcDirs = ['test']
+        main.resources.srcDirs = ['resources']
+        test.resources.srcDirs = ['testresources']
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            jvmTarget = "11"
+        }
+    }
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        jcenter()
+    }
+
+    dependencies {
+        // Kotlin
+        implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+        // Dagger
+        implementation "com.google.dagger:dagger:$dagger_version"
+        kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    }
+}

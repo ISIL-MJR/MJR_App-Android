@@ -1,0 +1,41 @@
+apply plugin: 'application'
+apply plugin: 'kotlinx-serialization'
+
+group 'pe.isil.mjr.application'
+version '0.1.0'
+mainClassName = "io.ktor.server.netty.EngineMain"
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    jcenter()
+    maven { url 'https://kotlin.bintray.com/ktor' }
+}
+
+dependencies {
+    // Ktor
+    implementation "io.ktor:ktor-server-netty:$ktor_version"
+    implementation "io.ktor:ktor-server-core:$ktor_version"
+    implementation "io.ktor:ktor-auth:$ktor_version"
+    implementation "io.ktor:ktor-auth-jwt:$ktor_version"
+    implementation "io.ktor:ktor-serialization:$ktor_version"
+
+    // Logging
+    implementation "ch.qos.logback:logback-classic:$logback_version"
+
+    // Serialization
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization_version"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+
+    // Testing
+    testImplementation "io.ktor:ktor-server-tests:$ktor_version"
+
+    // Data module
+    implementation project(":data")
+}
+
+task stage {
+    dependsOn installDist
+}
